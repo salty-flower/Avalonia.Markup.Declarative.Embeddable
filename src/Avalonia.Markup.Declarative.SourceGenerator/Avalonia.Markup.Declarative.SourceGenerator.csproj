@@ -1,15 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.1.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.10.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.5-beta1.23225.2" PrivateAssets="all" />
-  </ItemGroup>
-
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.1.0" />
+        <PackageReference
+            Include="Microsoft.CodeAnalysis.CSharp"
+            PrivateAssets="all"
+            Version="4.10.0"
+        />
+        <PackageReference
+            Include="Microsoft.CodeAnalysis.Analyzers"
+            PrivateAssets="all"
+            Version="3.3.5-beta1.23225.2"
+        />
+    </ItemGroup>
 </Project>

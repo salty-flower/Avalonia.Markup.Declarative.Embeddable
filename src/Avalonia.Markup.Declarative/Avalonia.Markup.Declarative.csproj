@@ -1,55 +1,68 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <IsPackable>true</IsPackable>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 
-	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<IsPackable>true</IsPackable>
-		<Nullable>enable</Nullable>
-		<LangVersion>latest</LangVersion>
-		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+        <Authors>Avalonia Team</Authors>
+        <PackageProjectUrl>
+            https://github.com/AvaloniaUI/Avalonia.Markup.Declarative
+        </PackageProjectUrl>
+        <RepositoryUrl>https://github.com/AvaloniaUI/Avalonia.Markup.Declarative</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <Description>
+            The set of base classes and extension methods over Avalonia's controls to define
+            views/markup with C# code instead of XAML.
+        </Description>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageTags>
+            avalonia;avaloniaui;mvvm;mvp;csharpmarjup;android;ios;mac;forms;wpf;net;netstandard;net461;uwp;xamarin
+        </PackageTags>
+    </PropertyGroup>
 
-		<Authors>Avalonia Team</Authors>
-		<PackageProjectUrl>https://github.com/AvaloniaUI/Avalonia.Markup.Declarative</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/AvaloniaUI/Avalonia.Markup.Declarative</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
-		<Description>The set of base classes and extension methods over Avalonia's controls to define views/markup with C# code instead of XAML.</Description>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageIcon>icon.png</PackageIcon>
-		<PackageTags>avalonia;avaloniaui;mvvm;mvp;csharpmarjup;android;ios;mac;forms;wpf;net;netstandard;net461;uwp;xamarin</PackageTags>
-	</PropertyGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="Avalonia.Markup.Declarative.Tests" />
+    </ItemGroup>
 
+    <ItemGroup>
+        <None Include="icon.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="11.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference
+            Include="..\Avalonia.Markup.Declarative.SourceGenerator\Avalonia.Markup.Declarative.SourceGenerator.csproj"
+            ReferenceOutputAssembly="true"
+        >
+            <PrivateAssets>all</PrivateAssets>
+        </ProjectReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="bin\Debug\net7.0\/Avalonia.Markup.Declarative.SourceGenerator.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- Package the generator in the analyzer directory of the nuget package -->
+        <None
+            Include="$(OutputPath)/$(AssemblyName).SourceGenerator.dll"
+            Pack="true"
+            PackagePath="analyzers/dotnet/cs"
+            Visible="false"
+        />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="readme.txt" Pack="true" PackagePath="." />
+    </ItemGroup>
 	<ItemGroup>
-		<InternalsVisibleTo Include="Avalonia.Markup.Declarative.Tests" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="icon.png" Pack="true" PackagePath="\" />
-	</ItemGroup>
-	
-	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.1.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Avalonia.Markup.Declarative.SourceGenerator\Avalonia.Markup.Declarative.SourceGenerator.csproj" ReferenceOutputAssembly="true">
-			<PrivateAssets>all</PrivateAssets>
-		</ProjectReference>
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Remove="bin\Debug\net7.0\/Avalonia.Markup.Declarative.SourceGenerator.dll" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<!-- Package the generator in the analyzer directory of the nuget package -->
-		<None Include="$(OutputPath)/$(AssemblyName).SourceGenerator.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="readme.txt" Pack="true" PackagePath="." />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="ControlExtensions.Generated\" />
+	    <Folder Include="ControlExtensions.Generated\" />
 	</ItemGroup>
 
 </Project>

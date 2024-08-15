@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net8.0</TargetFramework>
@@ -8,32 +8,48 @@
 		<TrimMode Condition="'$(Configuration)' != 'Debug'">copyused</TrimMode>
 		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
 	</PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' != 'Debug'">
-    <PublishAot>true</PublishAot>
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' != 'Debug'">
+        <PublishAot>true</PublishAot>
+    </PropertyGroup>
+    <ItemGroup>
+        <AvaloniaXaml Remove="ControlExtensions.Generated\Events\**" />
+        <Compile Remove="ControlExtensions.Generated\Events\**" />
+        <EmbeddedResource Remove="ControlExtensions.Generated\Events\**" />
+        <None Remove="ControlExtensions.Generated\Events\**" />
+    </ItemGroup>
+        <ItemGroup>
+            <None Remove=".gitignore" />
+        </ItemGroup>
 	<ItemGroup>
-		<None Remove=".gitignore" />
-	</ItemGroup>
-	<ItemGroup>
-		<!--This helps with theme dll-s trimming.
+    <!--This helps with theme dll-s trimming.
 	If you will publish your application in self-contained mode with p:PublishTrimmed=true and it will use Fluent theme Default theme will be trimmed from the output and vice versa.
 	https://github.com/AvaloniaUI/Avalonia/issues/5593 -->
-		<TrimmableAssembly Include="Avalonia.Themes.Fluent" />
-		<TrimmableAssembly Include="Avalonia.Themes.Default" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Avalonia.Desktop" Version="11.1.0" />
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.0" />
-		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.0" />
-		<PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-rc2" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-	</ItemGroup>
+        <TrimmableAssembly Include="Avalonia.Themes.Fluent" />
+        <TrimmableAssembly Include="Avalonia.Themes.Default" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia.Desktop" Version="11.1.0" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.0" />
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference
+            Condition="'$(Configuration)' == 'Debug'"
+            Include="Avalonia.Diagnostics"
+            Version="11.1.0"
+        />
+        <PackageReference Include="LiveChartsCore.SkiaSharpView.Avalonia" Version="2.0.0-rc2" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\Avalonia.Markup.Declarative\Avalonia.Markup.Declarative.csproj" />
-		<ProjectReference Include="..\..\Avalonia.Markup.Declarative.SourceGenerator\Avalonia.Markup.Declarative.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference
+            Include="..\..\Avalonia.Markup.Declarative\Avalonia.Markup.Declarative.csproj"
+        />
+        <ProjectReference
+            Include="..\..\Avalonia.Markup.Declarative.SourceGenerator\Avalonia.Markup.Declarative.SourceGenerator.csproj"
+            OutputItemType="Analyzer"
+            ReferenceOutputAssembly="false"
+        />
+    </ItemGroup>
 
 	<ItemGroup>
 		<Using Include="System" />
@@ -46,5 +62,9 @@
 		<Using Include="Avalonia.Themes.Fluent" />
 		<Using Include="Avalonia.Layout" />
 		<Using Include="Avalonia.Media" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ControlExtensions.Generated\" />
 	</ItemGroup>
 </Project>
